@@ -1,57 +1,32 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
+import { useEffect, useState, useCallback, memo } from 'react';
 import './Home.css';
-import CountryTable from '../../components/countryTable/CountryTable';
+import Table from '../../components/table/Table';
+import Filter from '../../components/filter/Filter';
+import Loading from '../../components/loadingScreen/LoadingScreen';
 
-function CountryList(props) {
-   return <div>{props.countries ? <CountryTable countries={props.countries} /> : ''}</div>;
-}
+function Home(props) {
+   const [filteredCountries, setFilteredCountries] = useState(null);
+   const setFiltersCallback = useCallback((filters) => setFilteredCountries(filters), []);
 
-export default CountryList;
-
-/*
-function CountryList(props) {
-   console.log(props.countries);
-
-   const handleCountyClick = (e) => {
-      console.log('clicked' + e);
-   };
+   useEffect(() => {
+      setFilteredCountries(props.countries);
+   }, [props.countries]);
 
    return (
       <div>
-         <h1>Country list</h1>
-         <div>
-            <table className="countries">
-               <thead>
-                  <tr>
-                     <th>Flag</th>
-                     <th>Name</th>
-                     <th>Sub region</th>
-                     <th>Population</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {props.countries ? (
-                     props.countries.map((country, i) => (
-                        <tr key={i} onClick={handleCountyClick}>
-                           <td>
-                              <img src={country.flag} className="flag-image"></img>
-                           </td>
-                           <td>{country.name}</td>
-                           <td>{country.subregion}</td>
-                           <td>{country.population}</td>
-                        </tr>
-                     ))
-                  ) : (
-                     <tr></tr>
-                  )}
-               </tbody>
-            </table>
-         </div>
+         {
+            // if countries arent yet loaded, display loading spinner
+            filteredCountries ? <Filter countries={props.countries} setFilteredCountries={setFiltersCallback} /> : ''
+         }
+
+         {
+            // if filteredCountries arent yet loaded, display loading spinner
+            filteredCountries ? <Table filteredCountries={filteredCountries} /> : ''
+         }
+         {/* loading mask */}
+         <Loading loading={!filteredCountries} />
       </div>
    );
 }
 
-export default CountryList;
-*/
+export default memo(Home);

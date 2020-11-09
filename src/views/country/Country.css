@@ -1,0 +1,81 @@
+.country-container {
+}
+.country-flag {
+   height: 30vh;
+   align-self: center;
+}
+div button {
+   background: none;
+   border: 1px solid black;
+   border-radius: 10px;
+   height: 30px;
+   width: 60px;
+   font-size: 1.5rem;
+   transition: 0.5s ease;
+   margin-left: 5%;
+}
+div button:hover {
+   background: black;
+   color: white;
+   transition: 0.5s ease;
+}
+.country {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   pointer-events: none;
+}
+.country div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   margin: 0 2rem;
+}
+.country-flag {
+   height: 30vh;
+   align-self: center;
+}
+.country div h2 {
+   margin: 16px 0;
+   font-size: 1.5rem;
+   border-bottom: 1px solid black;
+   font-weight: 600;
+}
+.country div h3 {
+   font-size: 1.2rem;
+   font-weight: 600;
+}
+.country div h3 span {
+   font-size: 1.2rem;
+   font-weight: 400;
+}
+
+@media screen and (max-width: 960px) {
+   .country {
+      flex-direction: column;
+   }
+   .country div {
+      align-self: center;
+      width: 80%;
+   }
+   .country-flag {
+      width: 70%;
+      height: auto;
+   }
+   .country div h2 {
+      font-size: 1.2rem;
+   }
+   .country div h3 {
+      font-size: 1rem;
+      font-weight: 600;
+   }
+   .country div h3 span {
+      font-size: 0.9rem;
+      font-weight: 400;
+   }
+}

@@ -1,0 +1,62 @@
+form {
+   width: 90%;
+   margin: auto;
+}
+form h3 {
+   margin-bottom: 0px;
+   font-size: 1.2rem;
+   font-weight: 600;
+}
+.select {
+   display: flex;
+   align-items: center;
+   margin-bottom: 8px;
+}
+.select span {
+   margin-right: 8px;
+   font-size: 1.1rem;
+   font-weight: 600;
+}
+.inputField {
+   border-radius: 10px;
+   width: 200px;
+   margin-right: 16px;
+}
+
+.btn {
+   width: 100px;
+   border-radius: 10px;
+   margin: 0 8px;
+   padding: 2px 4px;
+   border: 1px solid black;
+   background: rgba(255, 255, 255, 0.171);
+   font-size: 1rem;
+   font-weight: 600;
+}
+.btn:hover {
+   background: white;
+}
+
+@media screen and (max-width: 1100px) {
+   .select span {
+      font-size: 0.85rem;
+   }
+}
+
+@media screen and (max-width: 960px) {
+   .select {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 32px;
+   }
+   .select span {
+      margin-top: 8px;
+      font-size: 0.8rem;
+   }
+
+   .btn {
+      margin: 0;
+      margin-top: 8px;
+      font-size: 0.8rem;
+   }
+}

@@ -3,3 +3,21 @@
    padding: 0;
    box-sizing: border-box;
 }
+.app {
+   background-image: linear-gradient(to right, rgb(85, 227, 252), rgb(23, 122, 139));
+   min-height: 100vh;
+}
+.heading {
+   width: 100%;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   padding: 16px 5%;
+   margin-bottom: 16px;
+}
+.heading img {
+   height: 40px;
+}
+.heading h1 {
+   margin-left: 1rem;
+}
