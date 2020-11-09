@@ -1,0 +1,16 @@
+.goToTop {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   opacity: 0.4;
+}
+
+.goToTop button {
+   height: 40px;
+   width: 40px;
+}
+.goToTop:hover {
+   height: 40px;
+   width: 40px;
+   opacity: 1;
+}

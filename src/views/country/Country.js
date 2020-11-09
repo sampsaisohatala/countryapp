@@ -19,6 +19,10 @@ function Country() {
       history.push('/');
    }
 
+   function numberWithSpaces(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+   }
+
    async function handleFetch() {
       const response = await fetch(query);
       const data = await response.json();
@@ -51,7 +55,7 @@ function Country() {
                      Capital city : <span>{country.capital}</span>
                   </h3>
                   <h3>
-                     Population : <span>{country.population}</span>
+                     Population : <span>{numberWithSpaces(country.population)}</span>
                   </h3>
                   <h3>
                      Languages :{' '}
@@ -78,7 +82,7 @@ function Country() {
                </div>
             </div>
          ) : (
-            <div>
+            <div className="notFound">
                <h1>Country not found</h1>
             </div>
          )}

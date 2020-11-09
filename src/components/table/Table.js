@@ -38,6 +38,10 @@ function Table(props) {
       history.push(`/${countrycode}`);
    }
 
+   function numberWithSpaces(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+   }
+
    return (
       <table {...getTableProps()}>
          <thead>
@@ -62,16 +66,22 @@ function Table(props) {
                      }}
                   >
                      {row.cells.map((cell) => {
-                        if (cell.column.Header !== 'Flag')
+                        if (cell.column.Header === 'Flag')
                            return (
                               <td {...cell.getCellProps()} className={cell.column.Header}>
-                                 {cell.render('Cell')}
+                                 <img src={cell.value} alt="" className="flag-image"></img>
+                              </td>
+                           );
+                        else if (cell.column.Header === 'Population')
+                           return (
+                              <td {...cell.getCellProps()} className={cell.column.Header}>
+                                 {numberWithSpaces(cell.value)}
                               </td>
                            );
                         else {
                            return (
                               <td {...cell.getCellProps()} className={cell.column.Header}>
-                                 <img src={cell.value} alt="" className="flag-image"></img>
+                                 {cell.render('Cell')}
                               </td>
                            );
                         }

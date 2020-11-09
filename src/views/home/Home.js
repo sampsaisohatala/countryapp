@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 import './Home.css';
 import Table from '../../components/table/Table';
 import Filter from '../../components/filter/Filter';
@@ -14,19 +15,17 @@ function Home(props) {
 
    return (
       <div>
-         {
-            // if countries arent yet loaded, display loading spinner
-            filteredCountries ? <Filter countries={props.countries} setFilteredCountries={setFiltersCallback} /> : ''
-         }
-
-         {
-            // if filteredCountries arent yet loaded, display loading spinner
-            filteredCountries ? <Table filteredCountries={filteredCountries} /> : ''
-         }
+         {filteredCountries ? <Filter countries={props.countries} setFilteredCountries={setFiltersCallback} /> : ''}
+         {filteredCountries ? <Table filteredCountries={filteredCountries} /> : ''}
+         <div className={window.scrollY > 1 ? 'goToTop active' : 'goToTop'}>
+            <button onClick={() => scroll.scrollToTop()}>
+               <i className="fas fa-arrow-up"></i>
+            </button>
+         </div>
          {/* loading mask */}
          <Loading loading={!filteredCountries} />
       </div>
    );
 }
 
-export default memo(Home);
+export default Home;

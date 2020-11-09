@@ -16,7 +16,7 @@ div button {
 }
 div button:hover {
    background: black;
-   color: white;
+   color: rgba(99, 232, 255);
    transition: 0.5s ease;
 }
 .country {
@@ -53,6 +53,10 @@ div button:hover {
 .country div h3 span {
    font-size: 1.2rem;
    font-weight: 400;
+}
+.notFound h1 {
+   text-align: center;
+   margin-top: 30vh;
 }
 
 @media screen and (max-width: 960px) {

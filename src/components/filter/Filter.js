@@ -31,7 +31,7 @@ function Filter(props) {
    };
 
    const handleSubmit = (e) => {
-      if (e !== undefined) e.preventDefault();
+      e.preventDefault();
       const filteredCountriesByRegion = props.countries.filter((country) => subregionFilter === 'all' || subregionFilter === country.subregion);
       const filteredCountries = filteredCountriesByRegion.filter((country) => nameFilter === '' || country.name.toLowerCase().includes(nameFilter.toLowerCase()));
       props.setFilteredCountries(filteredCountries);
@@ -42,9 +42,10 @@ function Filter(props) {
    }, []);
 
    const handleClear = () => {
+      // reset filter values to default
       nameInput.current.value = '';
-      setNameFilter('');
       subregionInput.current.value = 'all';
+      setNameFilter('');
       props.setFilteredCountries(props.countries);
    };
 

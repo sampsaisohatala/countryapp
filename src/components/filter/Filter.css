@@ -34,7 +34,7 @@ form h3 {
    font-weight: 600;
 }
 .btn:hover {
-   background: white;
+   background: rgba(99, 232, 255);
 }
 
 @media screen and (max-width: 1100px) {

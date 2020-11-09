@@ -9,6 +9,7 @@ table {
    border-collapse: collapse;
    width: 90%;
    margin: auto;
+   background: rgba(99, 232, 255, 0.397);
 }
 
 table td,
