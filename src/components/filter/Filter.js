@@ -5,6 +5,8 @@ function Filter(props) {
    const [nameFilter, setNameFilter] = useState('');
    const [subregions, setSubregions] = useState(null);
    const [subregionFilter, setSubregionFilter] = useState('all');
+   const [prevRegion, setPrevRegion] = useState('all');
+   const [prevNames, setPrevNames] = useState('');
 
    const clearBtn = useRef();
    const nameInput = useRef();
@@ -32,6 +34,12 @@ function Filter(props) {
 
    const handleSubmit = (e) => {
       e.preventDefault();
+      // prevent function to be called if values havent changed
+      if (subregionFilter === prevRegion && prevNames === nameFilter) return;
+
+      setPrevRegion(subregionFilter);
+      setPrevNames(nameFilter);
+
       const filteredCountriesByRegion = props.countries.filter((country) => subregionFilter === 'all' || subregionFilter === country.subregion);
       const filteredCountries = filteredCountriesByRegion.filter((country) => nameFilter === '' || country.name.toLowerCase().includes(nameFilter.toLowerCase()));
       props.setFilteredCountries(filteredCountries);

@@ -9,6 +9,7 @@ function Country() {
    const [pageFound, setPageFound] = useState(false);
    const [loading, setLoading] = useState(true);
    const history = useHistory();
+   const [error, setError] = useState(false);
 
    // get url
    const location = useLocation();
@@ -24,8 +25,12 @@ function Country() {
    }
 
    async function handleFetch() {
-      const response = await fetch(query);
-      const data = await response.json();
+      const response = await fetch(query).catch(() => {
+         console.error('data fetch failed');
+      });
+      const data = await response.json().catch(() => {
+         console.error('json parse failed');
+      });
 
       if (response.status === 200) {
          setCountry(data);

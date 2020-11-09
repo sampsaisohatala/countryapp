@@ -13,6 +13,11 @@ function Home(props) {
       setFilteredCountries(props.countries);
    }, [props.countries]);
 
+   function errorMessage() {
+      console.log('error 123');
+      return <h1 className="error-message">No data available...</h1>;
+   }
+
    return (
       <div>
          {filteredCountries ? <Filter countries={props.countries} setFilteredCountries={setFiltersCallback} /> : ''}
@@ -24,6 +29,8 @@ function Home(props) {
          </div>
          {/* loading mask */}
          <Loading loading={!filteredCountries} />
+         {/* error mask */}
+         {props.error ? errorMessage() : ''}
       </div>
    );
 }
