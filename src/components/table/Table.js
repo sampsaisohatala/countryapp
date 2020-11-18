@@ -70,30 +70,33 @@ function Table(props) {
                            handleRowClick(row.original.alpha3Code);
                         }}
                      >
-                        {row.cells.map((cell) => {
-                           // handle flag column
-                           if (cell.column.Header === 'Flag')
-                              return (
-                                 <td {...cell.getCellProps()} className={cell.column.Header}>
-                                    <img src={cell.value} alt="" className="flag-image"></img>
-                                 </td>
-                              );
-                           // handle population column
-                           else if (cell.column.Header === 'Population')
-                              return (
-                                 <td {...cell.getCellProps()} className={cell.column.Header}>
-                                    {numberWithSpaces(cell.value)}
-                                 </td>
-                              );
-                           // handle rest of the columnss
-                           else {
-                              return (
-                                 <td {...cell.getCellProps()} className={cell.column.Header}>
-                                    {cell.render('Cell')}
-                                 </td>
-                              );
-                           }
-                        })}
+                        {
+                           // create each cell for country row
+                           row.cells.map((cell) => {
+                              // handle flag column
+                              if (cell.column.Header === 'Flag')
+                                 return (
+                                    <td {...cell.getCellProps()} className={cell.column.Header}>
+                                       <img src={cell.value} alt="" className="flag-image"></img>
+                                    </td>
+                                 );
+                              // handle population column
+                              else if (cell.column.Header === 'Population')
+                                 return (
+                                    <td {...cell.getCellProps()} className={cell.column.Header}>
+                                       {numberWithSpaces(cell.value)}
+                                    </td>
+                                 );
+                              // handle rest of the columnss
+                              else {
+                                 return (
+                                    <td {...cell.getCellProps()} className={cell.column.Header}>
+                                       {cell.render('Cell')}
+                                    </td>
+                                 );
+                              }
+                           })
+                        }
                      </tr>
                   );
                })

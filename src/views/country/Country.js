@@ -9,12 +9,7 @@ function Country() {
    const [pageFound, setPageFound] = useState(false);
    const [loading, setLoading] = useState(true);
    const history = useHistory();
-   //const [error, setError] = useState(false);
-
-   // get url
    const location = useLocation();
-   const pathname = location.pathname;
-   const query = `${apiUrl}${pathname}`;
 
    function handleReturnClick() {
       history.push('/');
@@ -24,31 +19,35 @@ function Country() {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
    }
 
-   async function handleFetch() {
-      try {
-         const response = await fetch(query);
-         const data = await response.json();
-
-         if (response.status === 200) {
-            setCountry(data);
-            setPageFound(true);
-            setLoading(false);
-         } else {
-            setLoading(false);
-         }
-      } catch {
-         console.error('data fetch failed');
-         setLoading(false);
-      }
-   }
-
    // fetch country data
    useEffect(() => {
+      // get url
+      const pathname = location.pathname;
+      const query = `${apiUrl}${pathname}`;
+
+      async function handleFetch() {
+         try {
+            const response = await fetch(query);
+            const data = await response.json();
+
+            if (response.status === 200) {
+               setCountry(data);
+               setPageFound(true);
+               setLoading(false);
+            } else {
+               setLoading(false);
+            }
+         } catch {
+            console.error('data fetch failed');
+            setLoading(false);
+         }
+      }
+
       handleFetch();
    }, []);
 
    return (
-      <div className="country-container">
+      <div>
          <button onClick={handleReturnClick}>
             <i className="fas fa-arrow-left"></i>
          </button>

@@ -2,27 +2,17 @@ import React, { useEffect, useState, useRef } from 'react';
 import './Filter.css';
 
 function Filter(props) {
-   const [nameFilter, setNameFilter] = useState('');
    const [subregions, setSubregions] = useState(null);
+
+   const [nameFilter, setNameFilter] = useState('');
    const [subregionFilter, setSubregionFilter] = useState('all');
+
    const [prevRegion, setPrevRegion] = useState('all');
-   const [prevNames, setPrevNames] = useState('');
+   const [prevName, setPrevName] = useState('');
 
    const clearBtn = useRef();
    const nameInput = useRef();
    const subregionInput = useRef();
-
-   // functions
-   const getSubregions = () => {
-      let regions = [];
-      props.countries.forEach((country) => {
-         if (!regions.includes(country.subregion) && country.subregion !== '') {
-            regions.push(country.subregion);
-         }
-      });
-
-      setSubregions(regions);
-   };
 
    const handleNameFilter = (e) => {
       setNameFilter(e.target.value);
@@ -35,27 +25,45 @@ function Filter(props) {
    const handleSubmit = (e) => {
       e.preventDefault();
       // prevent function to be called if values havent changed
-      if (subregionFilter === prevRegion && prevNames === nameFilter) return;
+      if (subregionFilter === prevRegion && prevName === nameFilter) return;
 
+      setPrevName(nameFilter);
       setPrevRegion(subregionFilter);
-      setPrevNames(nameFilter);
 
-      const filteredCountriesByRegion = props.countries.filter((country) => subregionFilter === 'all' || subregionFilter === country.subregion);
-      const filteredCountries = filteredCountriesByRegion.filter((country) => nameFilter === '' || country.name.toLowerCase().includes(nameFilter.toLowerCase()));
-      props.setFilteredCountries(filteredCountries);
+      props.setFiltersCallback(nameFilter, subregionFilter);
    };
 
-   useEffect(() => {
-      getSubregions();
-   }, []);
-
    const handleClear = () => {
+      if (nameFilter === '' && subregionFilter === 'all') return;
+
       // reset filter values to default
       nameInput.current.value = '';
       subregionInput.current.value = 'all';
+
       setNameFilter('');
-      props.setFilteredCountries(props.countries);
+      setSubregionFilter('all');
+      setPrevName('');
+      setPrevRegion('all');
+
+      props.setFiltersCallback('', 'all');
    };
+
+   // get subregions
+   useEffect(() => {
+      const getSubregions = () => {
+         let regions = [];
+
+         props.countries.forEach((country) => {
+            if (!regions.includes(country.subregion) && country.subregion !== '') {
+               regions.push(country.subregion);
+            }
+         });
+
+         setSubregions(regions);
+      };
+
+      getSubregions();
+   }, [props.countries]);
 
    return (
       <form onSubmit={handleSubmit}>
