@@ -47,48 +47,57 @@ function Table(props) {
          <thead>
             {headerGroups.map((headerGroup) => (
                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                     <th {...column.getHeaderProps()} className={column.Header}>
-                        {column.render('Header')}
-                     </th>
-                  ))}
+                  {
+                     // create column headers
+                     headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps()} className={column.Header}>
+                           {column.render('Header')}
+                        </th>
+                     ))
+                  }
                </tr>
             ))}
          </thead>
          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-               prepareRow(row);
-               return (
-                  <tr
-                     {...row.getRowProps()}
-                     onClick={() => {
-                        handleRowClick(row.original.alpha3Code);
-                     }}
-                  >
-                     {row.cells.map((cell) => {
-                        if (cell.column.Header === 'Flag')
-                           return (
-                              <td {...cell.getCellProps()} className={cell.column.Header}>
-                                 <img src={cell.value} alt="" className="flag-image"></img>
-                              </td>
-                           );
-                        else if (cell.column.Header === 'Population')
-                           return (
-                              <td {...cell.getCellProps()} className={cell.column.Header}>
-                                 {numberWithSpaces(cell.value)}
-                              </td>
-                           );
-                        else {
-                           return (
-                              <td {...cell.getCellProps()} className={cell.column.Header}>
-                                 {cell.render('Cell')}
-                              </td>
-                           );
-                        }
-                     })}
-                  </tr>
-               );
-            })}
+            {
+               // create row for each country
+               rows.map((row) => {
+                  prepareRow(row);
+                  return (
+                     <tr
+                        {...row.getRowProps()}
+                        onClick={() => {
+                           handleRowClick(row.original.alpha3Code);
+                        }}
+                     >
+                        {row.cells.map((cell) => {
+                           // handle flag column
+                           if (cell.column.Header === 'Flag')
+                              return (
+                                 <td {...cell.getCellProps()} className={cell.column.Header}>
+                                    <img src={cell.value} alt="" className="flag-image"></img>
+                                 </td>
+                              );
+                           // handle population column
+                           else if (cell.column.Header === 'Population')
+                              return (
+                                 <td {...cell.getCellProps()} className={cell.column.Header}>
+                                    {numberWithSpaces(cell.value)}
+                                 </td>
+                              );
+                           // handle rest of the columnss
+                           else {
+                              return (
+                                 <td {...cell.getCellProps()} className={cell.column.Header}>
+                                    {cell.render('Cell')}
+                                 </td>
+                              );
+                           }
+                        })}
+                     </tr>
+                  );
+               })
+            }
          </tbody>
       </table>
    );

@@ -9,14 +9,19 @@ function App() {
    const [countries, setCountries] = useState(null);
    const [error, setError] = useState(false);
 
+   async function handleFetch() {
+      try {
+         const response = await fetch(apiUrl);
+         const data = await response.json();
+         setCountries(data);
+      } catch {
+         console.error('data fetch failed');
+         setError(true);
+      }
+   }
+
    useEffect(() => {
-      fetch(apiUrl)
-         .then((res) => res.json())
-         .then((json) => setCountries(json))
-         .catch(() => {
-            setError(true);
-            console.error('fetching data failed');
-         });
+      handleFetch();
    }, []);
 
    return (

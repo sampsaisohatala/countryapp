@@ -9,7 +9,7 @@ function Country() {
    const [pageFound, setPageFound] = useState(false);
    const [loading, setLoading] = useState(true);
    const history = useHistory();
-   const [error, setError] = useState(false);
+   //const [error, setError] = useState(false);
 
    // get url
    const location = useLocation();
@@ -25,18 +25,19 @@ function Country() {
    }
 
    async function handleFetch() {
-      const response = await fetch(query).catch(() => {
-         console.error('data fetch failed');
-      });
-      const data = await response.json().catch(() => {
-         console.error('json parse failed');
-      });
+      try {
+         const response = await fetch(query);
+         const data = await response.json();
 
-      if (response.status === 200) {
-         setCountry(data);
-         setPageFound(true);
-         setLoading(false);
-      } else {
+         if (response.status === 200) {
+            setCountry(data);
+            setPageFound(true);
+            setLoading(false);
+         } else {
+            setLoading(false);
+         }
+      } catch {
+         console.error('data fetch failed');
          setLoading(false);
       }
    }
